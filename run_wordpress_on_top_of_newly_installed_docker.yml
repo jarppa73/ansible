@@ -1,0 +1,6 @@
+- hosts: ubuntu
+
+  roles:
+    - docker
+    - docker-compose
+    - wordpress
