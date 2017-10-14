@@ -1,0 +1,26 @@
+---
+- name: Remove docker-compose
+  file:
+    state: absent
+    path: /usr/local/bin/docker-compose
+  become: yes
+- name: Get latest docker-compose version
+  shell: curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4
+  register: COMPOSE_VERSION
+  ignore_errors: True
+- name: Get OS version
+  shell: uname -s
+  register: OS_VERSION
+  ignore_errors: True
+- name: Get OS architecture
+  shell: uname -m
+  register: OS_ARCHITECTURE
+  ignore_errors: True
+- name: Download latest docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ COMPOSE_VERSION.stdout }}/docker-compose-{{ OS_VERSION.stdout }}-{{ OS_ARCHITECTURE.stdout }}
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+  become: yes
+- debug:
+    msg: "Latest docker-compose version: {{ COMPOSE_VERSION.stdout }}"

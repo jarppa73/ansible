@@ -1,0 +1,11 @@
+- hosts: ubuntu
+
+  roles:
+    - docker
+    - docker-compose   
+
+#  tasks:
+#    - name: Install the package "foo"
+#      apt:
+#        name: foo
+#        state: present 

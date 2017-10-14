@@ -1,0 +1,19 @@
+---
+- name: Remove docker package
+  apt:
+    name: docker-ce
+    state: absent
+  become: yes
+- name: Remove docker volume
+  file:
+    state: absent
+    path: /var/lib/docker
+  become: yes
+- name: Download docker ce
+  get_url:
+    url: https://get.docker.com/
+    dest: /tmp/get-docker.sh
+    mode: 0755
+- name: Install docker
+  command: /tmp/get-docker.sh
+  become: yes
