@@ -1,3 +1,8 @@
+- name: Remove compose file if exists before copy new file
+  file:
+    path: ~/docker-compose.yml
+    state: absent
+
 - name: Copy compose file to Ubuntu box
   copy:
     src: docker-compose.yml
