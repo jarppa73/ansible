@@ -9,7 +9,7 @@
     dest: /home/ubuntu
     owner: ubuntu
     group: ubuntu
-    mode: 0644
+    mode: 0664
 
 - name: Pull and start wordpress  
   command: docker-compose -f docker-compose.yml up -d
